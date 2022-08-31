@@ -23,7 +23,7 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
   <h2>Products CRUD</h2>
 
 
-  <table class="table table-striped table-success">
+  <table class="table table-striped table-warning">
   <thead>
     <tr>
       <th scope="col">#</th>
@@ -40,14 +40,20 @@ $products = $statement->fetchAll(PDO::FETCH_ASSOC);
     foreach ($products as $i => $product) { ?>
         <tr>
       <th scope="row"><?php echo $i + 1 ?></th>
-      <td></td>
+      <td>
+        <img class="thumb-image" src="<?php echo $product['image'] ?>">
+      </td>
       <td><?php echo $product['title'] ?></td>
       <td><?php echo $product['price'] ?></td>
       <td><?php echo $product['create_date'] ?></td>
       <td><?php echo $product['description'] ?></td>
       <td>
-      <button type="button" class="btn btn-primary">Edit</button>
-      <button type="button" class="btn btn-danger">Delete</button>
+      <a href="update.php?id=<?php echo $product['id'] ?>" class="btn btn-outline-primary">Edit</a>
+
+      <form style="display: inline-block" method="post" action="delete.php">
+        <input type="hidden" name="id" value="<?php echo $product['id'] ?>">
+      <button type="submit" class="btn btn-outline-danger">Delete</button>
+      </form>
       </td>
     </tr>
     <?php } 
